@@ -36,7 +36,7 @@ class NewVisitorTest(unittest.TestCase):
 
         table = self.browser.find_element_by_id('id_list_table')
         rows = table.find_elements_by_tag_name('tr')
-        self.assertTrue(any(row.text == '1: Buy peackock feathers') for row in rows)
+        self.assertTrue(any(row.text == '1: Buy peackock feathers' for row in rows), 'New todo item not in table')
 
         # text box for adding items is visible, user enters
         # 'buy crayons'
