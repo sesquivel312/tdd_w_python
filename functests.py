@@ -1,4 +1,7 @@
+#!/usr/bin/env python
+
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 import unittest
 
 class NewVisitorTest(unittest.TestCase):
@@ -15,21 +18,29 @@ class NewVisitorTest(unittest.TestCase):
 
         self.browser.get('http://localhost:8000')
 
-        # user will notice page title is 'To Do'
-
+        # user will notice page title is 'To-Do'
         self.assertIn('To-Do', self.browser.title)
-        print('Got To-Do')
-        self.fail('Finish writing the test!')
+        header_text = self.browser.find_element_by_tag_name('h1').text
+        self.assertIn('To-Do', header_text)
 
         # user is asked to enter a to-do item immediately
+        inputbox = self.browser.find_element_by_id('id_new_item')
+        self.assertEqual(inputbox.get_attribute('placeholder'), 'Enter a to-do item')
 
         # user types 'learn more python' into text box
+        inputbox.send_keys('Buy peacock feathers')
 
         # when enter is pressed, page udpates and displays
         # 1: learn more python
+        inputbox.send_keys(Keys.ENTER)
+
+        table = self.browser.find_element_by_id('id_list_table')
+        rows = table.find_elements_by_tag_name('tr')
+        self.assertTrue(any(row.text == '1: Buy peackock feathers') for row in rows)
 
         # text box for adding items is visible, user enters
         # 'buy crayons'
+        self.fail('Finish writing tests')
 
         # page updates again, showing both items
 
