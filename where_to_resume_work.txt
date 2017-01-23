@@ -1,3 +1,3 @@
 this file is a reminder of where to pick up work next session, in the TDD w/Python book
 
-beginning of ch 4 (just finished ch 3)
+beginning of ch 5
