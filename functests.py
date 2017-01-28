@@ -13,6 +13,12 @@ class NewVisitorTest(unittest.TestCase):
     def tearDown(self):
         self.browser.quit()
 
+    def helper_check_text_in_table(self, test_text):
+
+        table = self.browser.find_element_by_id('id_list_table')
+        rows = table.find_elements_by_tag_name('tr')
+        self.assertIn(test_text, [row.text for row in rows])
+
     def test_start_and_retrieve_list(self):
         # insert "user story" verbiage in comments...
         # user wants to use this to-do list app, they will open the URL in their browser
@@ -35,9 +41,7 @@ class NewVisitorTest(unittest.TestCase):
         # 1: Buy peacock feathers
         inputbox.send_keys(Keys.ENTER)
 
-        table = self.browser.find_element_by_id('id_list_table')
-        rows = table.find_elements_by_tag_name('tr')
-        self.assertIn('1: Buy peacock feathers', [row.text for row in rows])
+        self.helper_check_text_in_table('1: Buy peacock feathers')
 
         # text box for adding items is visible, user enters
         # 'Use feathers to make a fly'
@@ -47,9 +51,8 @@ class NewVisitorTest(unittest.TestCase):
         inputbox.send_keys(Keys.ENTER)
 
         # page updates again, showing both items
-        table = self.browser.find_element_by_id('id_list_table')
-        rows = table.find_elements_by_tag_name('tr')
-        self.assertIn('2: Use feathers to make a fly', [row.text for row in rows])
+        self.helper_check_text_in_table('1: Buy peacock feathers')
+        self.helper_check_text_in_table('2: Use feathers to make a fly')
 
         # page displays some info about a URL from which to retrieve the 2do list
         self.fail('Finish writing tests')
