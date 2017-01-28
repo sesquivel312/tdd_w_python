@@ -1,8 +1,9 @@
 #!/usr/bin/env python
+import time
+import unittest
 
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-import unittest
 
 class NewVisitorTest(unittest.TestCase):
     def setUp(self):
@@ -27,24 +28,31 @@ class NewVisitorTest(unittest.TestCase):
         inputbox = self.browser.find_element_by_id('id_new_item')
         self.assertEqual(inputbox.get_attribute('placeholder'), 'Enter a to-do item')
 
-        # user types 'learn more python' into text box
+        # user types 'Buy peacock feathers' into text box
         inputbox.send_keys('Buy peacock feathers')
 
         # when enter is pressed, page udpates and displays
-        # 1: learn more python
+        # 1: Buy peacock feathers
         inputbox.send_keys(Keys.ENTER)
 
         table = self.browser.find_element_by_id('id_list_table')
         rows = table.find_elements_by_tag_name('tr')
-        self.assertTrue(any(row.text == '1: Buy peackock feathers' for row in rows), 'New todo item not in table')
+        self.assertIn('1: Buy peacock feathers', [row.text for row in rows])
 
         # text box for adding items is visible, user enters
-        # 'buy crayons'
-        self.fail('Finish writing tests')
+        # 'Use feathers to make a fly'
+        inputbox = self.browser.find_element_by_id('id_new_item')
+
+        inputbox.send_keys('Use feathers to make a fly')
+        inputbox.send_keys(Keys.ENTER)
 
         # page updates again, showing both items
+        table = self.browser.find_element_by_id('id_list_table')
+        rows = table.find_elements_by_tag_name('tr')
+        self.assertIn('2: Use feathers to make a fly', [row.text for row in rows])
 
         # page displays some info about a URL from which to retrieve the 2do list
+        self.fail('Finish writing tests')
 
         # user visits that URL
 
