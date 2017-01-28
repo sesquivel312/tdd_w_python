@@ -7,6 +7,8 @@ from lists.views import home_page
 from lists.models import Item
 
 
+# todo tests should clean up database when complete
+
 class HomePageTest(TestCase):
 
     def test_root_resolves_home_view(self):
