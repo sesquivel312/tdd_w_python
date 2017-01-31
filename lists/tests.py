@@ -40,7 +40,7 @@ class HomePageTest(TestCase):
         response = home_page(request)
 
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(response['location'], '/')
+        self.assertEqual(response['location'], '/lists/single-list')
 
     def test_save_only_as_needed(self):  # i.e. don't save empty items to the list,e.g. by simply visiting the page
         """
@@ -50,7 +50,7 @@ class HomePageTest(TestCase):
         """
         request = HttpRequest()
         home_page(request)
-        self.assertEqual(Item.objects.count(),0)
+        self.assertEqual(Item.objects.count(), 0)
 
     def test_homepage_displays_all_items(self):
 
@@ -62,6 +62,7 @@ class HomePageTest(TestCase):
 
         self.assertIn('itemy 1', response.content.decode())
         self.assertIn('itemy 2', response.content.decode())
+
 
 class ItemModelTest(TestCase):
 
@@ -82,3 +83,16 @@ class ItemModelTest(TestCase):
         second_saved_item = saved_items[1]
         self.assertEqual(first_saved_item.text, 'The first (ever) list item')
         self.assertEqual(second_item.text, 'Item the second')
+
+
+class ListViewTest(TestCase):
+
+    def test_display_all_items(self):
+        Item.objects.create(text='itemy1')
+        Item.objects.create(text='itemy2')
+
+        response = self.client.get('/lists/single-list')
+
+        self.assertContains(response, 'itemy1')
+        self.assertContains(response, 'itemy2')
+

@@ -9,7 +9,12 @@ def home_page(request):
 
     if request.method == 'POST':  # I assume as opposed to the GET resulting from just visiting the page
         Item.objects.create(text=request.POST['item_text'])
-        return redirect('/')
+        return redirect('/lists/single-list')
 
+    items = Item.objects.all()
+    return render(request, 'home.html', {'items': items})
+
+
+def view_list(request):
     items = Item.objects.all()
     return render(request, 'home.html', {'items': items})
