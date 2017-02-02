@@ -7,8 +7,6 @@ from lists.views import home_page
 from lists.models import Item
 
 
-# todo tests should clean up database when complete
-
 class HomePageTest(TestCase):
 
     def test_root_resolves_home_view(self):
@@ -20,37 +18,6 @@ class HomePageTest(TestCase):
         response = home_page(request)
         expected_html = render_to_string('home.html')
         self.assertEqual(response.content.decode(), expected_html)
-
-    def test_homepage_saves_post(self):
-        request = HttpRequest()
-        request.method = 'POST'
-        request.POST['item_text'] = 'A new list item'
-
-        response = home_page(request)
-
-        self.assertEqual(Item.objects.count(), 1)
-        new_item = Item.objects.first()
-        self.assertEqual(new_item.text, 'A new list item')
-
-    def test_homepage_redirects_after_post(self):
-        request = HttpRequest()
-        request.method = 'POST'
-        request.POST['item_text'] = 'A new list item'
-
-        response = home_page(request)
-
-        self.assertEqual(response.status_code, 302)
-        self.assertEqual(response['location'], '/lists/single-list')
-
-    def test_save_only_as_needed(self):  # i.e. don't save empty items to the list,e.g. by simply visiting the page
-        """
-        in this test, use the default method (GET) and don't send any data with it, in that case nothing should be
-        added to the database
-        :return: n/a
-        """
-        request = HttpRequest()
-        home_page(request)
-        self.assertEqual(Item.objects.count(), 0)
 
 
 class ItemModelTest(TestCase):
@@ -88,4 +55,18 @@ class ListViewTest(TestCase):
 
         self.assertContains(response, 'itemy1')
         self.assertContains(response, 'itemy2')
+
+
+class NewListTest(TestCase):
+    def test_saves_post(self):
+        self.client.post('/lists/new', data={'item_text': 'A new list item'})
+
+        self.assertEqual(Item.objects.count(), 1)
+        new_item = Item.objects.first()
+        self.assertEqual(new_item.text, 'A new list item')
+
+    def test_redirect_after_post(self):
+        response = self.client.post('/lists/new', data={'item_text': 'A new list item'})
+
+        self.assertRedirects(response, '/lists/single-list/')
 
