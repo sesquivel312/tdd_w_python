@@ -5,8 +5,6 @@ from lists.models import Item, List
 
 def home_page(request):
 
-    # todo enable for multiple users & more than one list
-
     return render(request, 'home.html')
 
 
