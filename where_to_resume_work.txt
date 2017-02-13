@@ -1,4 +1,0 @@
-this file is a reminder of where to pick up work next session, in the TDD w/Python book
-
-middle-ish of ch6 - just implemented the view for /lists/single-list, I am getting an HTTP error, but the book thinks
-I should be getting a python error of some sort.
