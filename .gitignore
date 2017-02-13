@@ -1,5 +1,4 @@
 # Created by .ignore support plugin (hsz.mobi)
-superlists/
 db.sqlite3
 __pycache__
 *.pyc
