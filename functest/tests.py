@@ -1,9 +1,7 @@
 #!/usr/bin/env python
 
-# todo adjust model such that items are associated with a specific list
-# todo unique url for each list
-# todo url for adding a new list (POST)
 # todo url for adding a new item to a given list (POST)
+# todo refactor urls (dedup them)
 
 import time
 import unittest
