@@ -1,3 +1,8 @@
 this file is a reminder of where to pick up work next session, in the TDD w/Python book
 
-start @ ch 7 - possibly review the ch 6 items I didn't follow 100% before doing so!!
+
+start @ ch 7/Static Files in Django
+context:
+* installed bootstrap CSS
+* some boilerplate bootstrap code to the html template base
+* added an FT to check 'style' of page
