@@ -1,4 +1,5 @@
 # Created by .ignore support plugin (hsz.mobi)
+/scratch
 db.sqlite3
 __pycache__
 *.pyc

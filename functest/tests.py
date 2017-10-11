@@ -27,7 +27,7 @@ class NewVisitorTest(StaticLiveServerTestCase):
             super().tearDownClass()
 
     def setUp(self):
-        self.browser = webdriver.Chrome('/home/steve/bin/chromedriver')
+        self.browser = webdriver.Chrome('chromedriver')  # /home/steve/bin/chromedriver
         self.browser.implicitly_wait(3)
 
     def tearDown(self):
@@ -80,7 +80,7 @@ class NewVisitorTest(StaticLiveServerTestCase):
         # new user bob visits site
         ## close browser session to ensure no traces of it are left in the next (cookies, etc.)
         self.browser.quit()
-        self.browser = webdriver.Chrome('/home/steve/bin/chromedriver')
+        self.browser = webdriver.Chrome('chromedriver')  # /home/steve/bin/chromedriver
 
         # bob doesn't see alice's list
         self.browser.get(self.server_url)

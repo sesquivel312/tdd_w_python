@@ -28,3 +28,12 @@ __Foreign Key__
 * django and the "trailing /"
 * django models & foreign keys (really need to brush up on FK in a db in general)
 * how would I really troubleshoot problems -- i.e. all the troubleshooting in the book is based only on knowing how Django works and taking an educated guess at what is causing the problem, in some cases that seems like enough, but in others the leap to the solution seemed like "magic"
+
+## Selenium
+* Tool to automate testing by simulating a browser (actually drives the browser you tell it to)
+* Chrome is not supported "out of the box" - must install the ChromeDriver from [here](https://sites.google.com/a/chromium.org/chromedriver/downloads)
+    * This is a java app (i.e. requires a functioning JRE) - selenium itself is for that matter
+    * The ChromeDriver (called driver from here on) must be in your path or you must give the full path when calling it
+    * I've put it in my virtual env bin directory - not sure if that's best but, it's on my path by default - as long as I'm in the virtual env of course
+
+
